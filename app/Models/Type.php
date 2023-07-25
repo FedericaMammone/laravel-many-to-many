@@ -11,8 +11,6 @@ class Type extends Model
 
     protected $fillable = [
         "type_name"
-
-
     ];
 
     public function projects()

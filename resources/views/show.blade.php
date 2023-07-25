@@ -16,5 +16,11 @@
             Tipo progetto: {{ $projects->type->type_name }}
         </span>
 
+        <div class="bg-warning">Technologies:
+            @foreach ($projects->technologies as $technology)
+                <span>{{ $technology->name }}</span>
+            @endforeach
+        </div>
+
     </div>
 @endsection

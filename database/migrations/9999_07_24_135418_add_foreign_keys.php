@@ -18,11 +18,9 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained();
         });
 
-
-        Schema::table('role_user', function (Blueprint $table) {
-
-            $table->foreignId('role_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+        Schema::table('project_technology', function (Blueprint $table) {
+            $table->foreignId('project_id')->constrained();
+            $table->foreignId('technology_id')->constrained();
         });
     }
 
@@ -40,13 +38,11 @@ return new class extends Migration
             $table->dropColumn('type_id');
         });
 
-        Schema::table('role_user', function (Blueprint $table) {
-
-            $table->dropForeign('role_user_role_id_foreign');
-            $table->dropForeign('role_user_user_id_foreign');
-
-            $table->dropColumn('role_id');
-            $table->dropColumn('user_id');
+        Schema::table('project_technology', function (Blueprint $table) {
+            $table->dropForeign('project_technology_project_id_foreign');
+            $table->dropForeign('project_technology_technology_id_foreign');
+            $table->dropColumn('project_id');
+            $table->dropColumn('technology_id');
         });
     }
 };

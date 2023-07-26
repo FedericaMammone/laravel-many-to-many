@@ -2,25 +2,28 @@
 
 @section('content')
     <div>
-        <h1>Nome progetto: {{ $projects->title }}</h1>
+        <h1>Nome progetto: {{ $project->title }}</h1>
 
-        <span>Data pubblicazione: {{ $projects->publish_date }}</span>
+        <span>Data pubblicazione: {{ $project->publish_date }}</span>
 
-        <p>Descrizione: {{ $projects->description }}</p>
+        <p>Descrizione: {{ $project->description }}</p>
 
-        <span>Accessibilità: {{ $projects->accessibility }}</span>
+        <span>Accessibilità: {{ $project->accessibility }}</span>
 
         <br>
 
         <span class="bg-warning">
-            Tipo progetto: {{ $projects->type->type_name }}
+            Tipo progetto: {{ $project->type->type_name }}
         </span>
 
-        <div class="bg-warning">Technologies:
-            @foreach ($projects->technologies as $technology)
+        <div class="bg-warning">Technology:
+            @foreach ($project->technologies as $technology)
                 <span>{{ $technology->name }}
             @endforeach
         </div>
 
+        <a class="btn btn-primary" href="{{ route('project.edit', $project->id) }}">
+            EDIT
+        </a>
     </div>
 @endsection

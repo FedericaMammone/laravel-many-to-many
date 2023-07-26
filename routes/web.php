@@ -17,27 +17,44 @@ use App\Http\Controllers\Admin\ProjectController;
 
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Rotta per visualizzare l'elenco di tutti i progetti
+Route::get('/', [ProjectController::class, 'index'])->name('welcome');
 
-Route::get('/', [ProjectController::class, 'index'])->name('project.index');
 
-Route::get('/show{id}', [ProjectController::class, 'show'])
-    ->middleware(['auth'])
-    ->name('project.show');
-
+// Rotta per mostrare il form di creazione di un nuovo progetto
 Route::get('/create', [ProjectController::class, 'create'])
-    ->middleware(['auth'])
+    ->middleware(['auth']) // Middleware per assicurarsi che l'utente sia autenticato
     ->name('project.create');
 
+
+// Rotta per salvare un nuovo progetto nel database
 Route::post('/store', [ProjectController::class, 'store'])
     ->middleware(['auth'])
     ->name('project.store');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Rotta per mostrare i dettagli di un progetto specifico
+Route::get('/show/{id}', [ProjectController::class, 'show'])
+    ->middleware(['auth'])
+    ->name('project.show');
+
+
+// Rotta per mostrare il form di modifica di un progetto esistente
+Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])
+    ->middleware(['auth'])
+    ->name('project.edit');
+
+
+// Rotta per aggiornare un progetto esistente nel database
+Route::put('/project/{id}', [ProjectController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('project.update');
+
+
+// // Rotta per eliminare un progetto dal database
+// Route::delete('/project/{id}', [ProjectController::class, 'destroy'])
+//     ->middleware(['auth'])
+//     ->name('project.destroy');
 
 
 
@@ -47,12 +64,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/projects/create', [ProjectController::class, 'create'])
-//     ->name('project.create');
-// Route::project('/project/store', [ProjectController::class, 'store'])
-//     ->name('project.store');
 
-// Route::get('/projects/{id}', [ProjectController::class, 'show'])
-//     ->name('project.show');
 
 require __DIR__ . '/auth.php';

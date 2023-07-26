@@ -42,9 +42,21 @@
             </select>
             <br>
 
-            @foreach ($technologies as $technology)
-                <input type="checkbox" name="technologies[]" value="{{ $technology->id }}"> {{ $technology->name }}</input>
-            @endforeach
+            <span>
+                <h3>Technology:</h3>
+                <ul>
+
+                    @foreach ($technologies as $technology)
+                        <li>
+                            <input type="checkbox" name="technologies[]" value="{{ $technology->id }}">
+                            {{ $technology->name }}</input>
+                        </li>
+                    @endforeach
+
+                </ul>
+
+            </span>
+
 
             <input class="my-3" type="submit" value="CREATE">
         </form>

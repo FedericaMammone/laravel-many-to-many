@@ -18,7 +18,7 @@
 
         <div class="bg-warning">Technologies:
             @foreach ($projects->technologies as $technology)
-                <span>{{ $technology->name }}</span>
+                <span>{{ $technology->name }}
             @endforeach
         </div>
 

@@ -48,6 +48,7 @@ return new class extends Migration
         Schema::table('project_technology', function (Blueprint $table) {
             $table->dropForeign('project_technology_project_id_foreign'); // Rimuove il vincolo della Foreign Key
             $table->dropForeign('project_technology_technology_id_foreign'); // Rimuove il vincolo della Foreign Key
+
             $table->dropColumn('project_id'); // Rimuove la colonna 'project_id'
             $table->dropColumn('technology_id'); // Rimuove la colonna 'technology_id'
         });

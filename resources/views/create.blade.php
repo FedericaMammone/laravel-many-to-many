@@ -44,16 +44,15 @@
 
             <span>
                 <h3>Technology:</h3>
-                <ul>
-
-                    @foreach ($technologies as $technology)
-                        <li>
-                            <input type="checkbox" name="technologies[]" value="{{ $technology->id }}">
-                            {{ $technology->name }}</input>
-                        </li>
-                    @endforeach
-
-                </ul>
+                @foreach ($technologies as $technology)
+                    <div class="form-check mx-auto" style="max-width: 300px">
+                        <input class="form-check-input" type="checkbox" value="{{ $technology->id }}"
+                            name="technologies[]" id="technology-{{ $technology->id }}">
+                        <label class="form-check-label" for="technology-{{ $technology->id }}">
+                            {{ $technology->name }}
+                        </label>
+                    </div>
+                @endforeach
 
             </span>
 

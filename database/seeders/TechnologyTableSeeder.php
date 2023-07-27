@@ -23,9 +23,9 @@ class TechnologyTableSeeder extends Seeder
     {
         $technologies = Technology::factory()->count(10)->create(); // Popola la tabella 'technologies' con 10 record
 
-        foreach ($technologies as $technology) {
-            $projects = Project::inRandomOrder()->limit(rand(1, 3))->get(); // Seleziona casualmente 1-3 progetti
-            $technology->projects()->attach($projects); // Collega i progetti alla tecnologia tramite relazione many-to-many
-        }
+        // foreach ($technologies as $technology) {
+        //     $projects = Project::inRandomOrder()->limit(rand(1, 3))->get(); // Seleziona casualmente 1-3 progetti
+        //     $technology->projects()->attach($projects); // Collega i progetti alla tecnologia tramite relazione many-to-many
+        // }
     }
 }

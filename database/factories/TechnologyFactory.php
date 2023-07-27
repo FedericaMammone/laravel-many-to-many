@@ -26,7 +26,9 @@ class TechnologyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(1) // Genera un nome casuale di una parola per la tecnologia
+            "name" => fake()->unique()->randomElement([
+                "Java", "PHP", "C++", "JS", "Bash", "Python", "Perl", "C#", "HTML/CSS", "SQL"
+            ]),
         ];
     }
 }

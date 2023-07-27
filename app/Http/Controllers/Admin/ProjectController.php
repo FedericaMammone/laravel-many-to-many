@@ -94,14 +94,14 @@ class ProjectController extends Controller
         // Aggiorna i dati del progetto con i nuovi dati forniti
         $project->update($data);
 
-        // Collega le nuove tecnologie selezionate al progetto tramite la tabella di collegamento
-        $project->technologies()->sync($request->input('technologies'));
+        $project->technologies()->sync(
+            array_key_exists('technologies', $data)
+                ? $data['technologies']
+                : []
+        );
 
-        // Assegna il nuovo tipo selezionato al progetto
-        $project->type()->associate($request->input('type_id'));
 
-        // Salva le modifiche
-        $project->save();
+        return redirect()->route('project.show', $project->id);
 
         // Reindirizza all'URL della vista 'show' per visualizzare il progetto modificato
         return redirect()->route('project.show', $project->id);

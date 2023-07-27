@@ -51,22 +51,13 @@ class ProjectController extends Controller
         // Recupera i dati dal form inviato
         $data = $request->all();
 
-        // Crea un nuovo progetto nel database con i dati forniti
         $project = Project::create($data);
-
-        // Collega le tecnologie selezionate al progetto tramite la tabella di collegamento
-        $project->technologies()->attach($request->input('technologies'));
-
-        // Assegna il tipo selezionato al progetto
-        $project->type()->associate($request->input('type_id'));
+        $project->technologies()->attach($data['technologies']);
 
         $img_path = Storage::put('uploads', $data['main_picture']);
         $data['main_picture'] = $img_path;
 
-        // Salva le modifiche
-        $project->save();
-
-        // Reindirizza all'URL della vista 'show' per visualizzare il progetto appena creato
+        $project = Project::create($data);
         return redirect()->route('project.show', $project->id);
     }
 
@@ -137,7 +128,7 @@ class ProjectController extends Controller
         $project->main_picture = null;
         $project->save();
 
-        return redirect()->route('project$project.show', $project->id);
+        return redirect()->route('project.show', $project->id);
     }
 
 

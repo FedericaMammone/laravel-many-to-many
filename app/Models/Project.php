@@ -25,7 +25,8 @@ class Project extends Model
         "publish_date",
         "description",
         "accessibility",
-        "type_id"
+        "type_id",
+        "main_picture"
     ];
 
     /**

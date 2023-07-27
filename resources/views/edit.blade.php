@@ -4,9 +4,19 @@
     <div class="container text-center">
         <h1>Edit Project</h1>
 
-        <form method="POST" action="{{ route('project.update', $project->id) }}">
+        <form method="POST" action="{{ route('project.update', $project->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
+            @if ($project->main_picture)
+                <img src="{{ asset('storage/' . $project->main_picture) }}" width="200px">
+                <br>
+            @endif
+
+            <label for="main_picture">Main picture</label>
+            <br>
+            <input type="file" name="main_picture" id="main_picture">
+            <br>
 
             <label for="title">Title</label>
             <br>

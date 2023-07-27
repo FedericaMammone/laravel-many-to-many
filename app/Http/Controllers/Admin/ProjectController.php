@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
@@ -59,6 +60,9 @@ class ProjectController extends Controller
         // Assegna il tipo selezionato al progetto
         $project->type()->associate($request->input('type_id'));
 
+        $img_path = Storage::put('uploads', $data['main_picture']);
+        $data['main_picture'] = $img_path;
+
         // Salva le modifiche
         $project->save();
 
@@ -91,8 +95,7 @@ class ProjectController extends Controller
         // Recupera i dati dal form inviato
         $data = $request->all();
 
-        // Aggiorna i dati del progetto con i nuovi dati forniti
-        $project->update($data);
+
 
         $project->technologies()->sync(
             array_key_exists('technologies', $data)
@@ -100,11 +103,41 @@ class ProjectController extends Controller
                 : []
         );
 
+        if (!array_key_exists("main_picture", $data))
+            $data['main_picture'] = $project->main_picture;
+        else {
+            if ($project->main_picture) {
 
-        return redirect()->route('project.show', $project->id);
+                $oldImgPath = $project->main_picture;
+                Storage::delete($oldImgPath);
+            }
+
+            $data['main_picture'] = Storage::put('uploads', $data['main_picture']);
+        }
+
+
+        // Aggiorna i dati del progetto con i nuovi dati forniti
+        $project->update($data);
 
         // Reindirizza all'URL della vista 'show' per visualizzare il progetto modificato
         return redirect()->route('project.show', $project->id);
+    }
+
+    public function deletePicture($id)
+    {
+
+        $project = Project::findOrFail($id);
+
+        if ($project->main_picture) {
+
+            $oldImgPath = $project->main_picture;
+            Storage::delete($oldImgPath);
+        }
+
+        $project->main_picture = null;
+        $project->save();
+
+        return redirect()->route('project$project.show', $project->id);
     }
 
 

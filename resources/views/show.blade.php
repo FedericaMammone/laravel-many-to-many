@@ -2,6 +2,11 @@
 
 @section('content')
     <div>
+
+        <img src="
+            {{ asset($project->main_picture ? 'storage/' . $project->main_picture : 'storage/images/project.jpg') }}"
+            width="200px">
+
         <h1>Nome progetto: {{ $project->title }}</h1>
 
         <span>Data pubblicazione: {{ $project->publish_date }}</span>
@@ -25,5 +30,15 @@
         <a class="btn btn-primary" href="{{ route('project.edit', $project->id) }}">
             EDIT
         </a>
+
+        @if ($project->main_picture)
+            <form class="d-inline" method="POST" action="{{ route('project.picture.delete', $project->id) }}">
+
+                @csrf
+                @method('DELETE')
+
+                <input class="btn btn-primary" type="submit" value="DELETE PICTURE">
+            </form>
+        @endif
     </div>
 @endsection

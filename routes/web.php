@@ -50,6 +50,8 @@ Route::put('/project/{id}', [ProjectController::class, 'update'])
     ->middleware(['auth'])
     ->name('project.update');
 
+Route::delete('/project/{id}/picture', [ProjectController::class, 'deletePicture'])
+    ->name('project.picture.delete');
 
 // // Rotta per eliminare un progetto dal database
 // Route::delete('/project/{id}', [ProjectController::class, 'destroy'])
